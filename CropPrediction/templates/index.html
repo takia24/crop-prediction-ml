@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Crop Prediction</title>
+
+<link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
+
+<style>
+
+/* BODY */
+body{
+    background-image: url("{{ url_for('static', filename='farm.jpg') }}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: Arimo;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+/* GLASS BOX */
+.login{
+    width:420px;
+    padding:30px;
+
+    background: rgba(255,255,255,0.08);
+    border-radius:15px;
+
+    backdrop-filter: blur(10px);
+    box-shadow:0 0 30px rgba(0,255,204,0.3);
+
+    text-align:center;
+}
+
+/* TITLE */
+h1{
+    margin-bottom:20px;
+    background: linear-gradient(to right,#00f7ff,#00ff88);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* INPUT FIELD */
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+
+    border:none;
+    border-radius:8px;
+    outline:none;
+
+    background: rgba(255,255,255,0.25);
+    color:#007BFF;
+    font-size:14px;
+}
+
+/* PLACEHOLDER */
+input::placeholder{
+    color:#3399ff;
+}
+
+/* INPUT FOCUS EFFECT */
+input:focus{
+    box-shadow:0 0 10px rgba(0,123,255,0.6);
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    margin-top:10px;
+
+    background:#00c896;
+    color:white;
+
+    padding:12px;
+    border:none;
+    border-radius:8px;
+
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#00ffcc;
+    color:black;
+}
+
+/* RESET BUTTON */
+.reset-btn{
+    background:#ff5c5c;
+}
+
+.reset-btn:hover{
+    background:#ff8080;
+    color:black;
+}
+
+/* RESULT BOX */
+#predi{
+    margin-top:15px;
+    padding:10px;
+    border-radius:8px;
+    background:rgba(0,0,0,0.4);
+
+    font-size:22px;
+    font-weight:bold;
+    color:#00aaff;
+
+    text-align:center;
+    text-shadow:0 0 10px #00aaff;
+}
+
+/* ABOUT TEXT */
+.about{
+    margin-top:10px;
+    font-size:13px;
+    color:white;
+    opacity:0.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login">
+
+<h1>Crop Prediction Model</h1>
+
+<!-- FORM -->
+<form action="{{ url_for('predict') }}" method="post">
+
+<input type="number" step="any" name="Nitrogen" placeholder="Nitrogen" required>
+
+<input type="number" step="any" name="Phosphorus" placeholder="Phosphorus" required>
+
+<input type="number" step="any" name="Potassium" placeholder="Potassium" required>
+
+<input type="number" step="any" name="temperature" placeholder="Temperature" required>
+
+<input type="number" step="any" name="humidity" placeholder="Humidity" required>
+
+<input type="number" step="any" name="ph" placeholder="pH" required>
+
+<input type="number" step="any" name="rainfall" placeholder="Rainfall" required>
+
+<button type="submit" onclick="this.innerText='Predicting...'">
+Predict
+</button>
+
+<button type="reset" class="reset-btn">
+Clear
+</button>
+
+</form>
+
+<!-- RESULT -->
+<div id="predi">
+{{ prediction_text }}
+</div>
+
+<!-- ABOUT -->
+<p class="about">
+This ML model predicts the best crop based on soil nutrients and climate conditions.
+</p>
+
+</div>
+
+</body>
+</html>
